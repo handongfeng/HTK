@@ -1,6 +1,6 @@
 
-#ifndef __htkObjectk_h
-#define __htkObjectk_h
+#ifndef __htkObject_h
+#define __htkObject_h
 
 
 #include "htkMacro.h"
@@ -87,4 +87,4 @@ private:
 
 } // end namespace htk
 
-#endif //__htkObjectk_h
+#endif //__htkObject_h
