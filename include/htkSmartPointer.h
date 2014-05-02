@@ -2,6 +2,7 @@
  *
  *  Based on ITK's smart pointer
  *=========================================================================*/
+
 #ifndef __htkSmartPointer_h
 #define __htkSmartPointer_h
 
@@ -17,10 +18,6 @@ namespace htk
  * to the class referred to by the pointer without having to invoke
  * special Register()/UnRegister() methods directly.
  *
- * To compile / test this class
- * Windows: cl SmartPointerTest.cxx; .\\SmartPointerTest.exe
- * linux:   c++ SmartPointerTest.cxx ./a.out
- * other:   CCcompiler SmartPointerTest.cxx  ./a.out
  *
  */
 template< typename TObjectType >
