@@ -12,7 +12,7 @@
   #include "Windows.h"
 #endif
 
-//MyObject 几乎是所有对象的基类, 实现引用计数功能, 
+//Object 几乎是所有对象的基类, 实现引用计数功能, 
 //代码基本来 ITK 中的 LightObject 类, LightObject 在 ITK 中是最顶层的类.
 
 namespace htk
@@ -36,7 +36,7 @@ public:
 	//使用 New() 的对象, 应该使用 Delete()
 	//Delete() 会调用 UnRegister 减少引用计数
 	//只有当该对象的引用计数减为 0 时才会真正删除对象
-	virtual void Delete();
+	virtual void Delete() ;
 
 	//运行时类型识别, 返回某对象的具体类名.
 	virtual const char *GetNameOfClass() const 
@@ -51,6 +51,8 @@ public:
 	//增加与减少引用计数
 	virtual void Register() const;
 	virtual void UnRegister() const;
+
+	
 
 	//返回该类对象实例的引用计数
 	virtual int GetReferenceCount() const 

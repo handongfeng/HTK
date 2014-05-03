@@ -15,7 +15,7 @@
 //
 
 //一个 multimap, 用来存储识别对象工厂的信息,及其可以创建的对象的版本信息
-class OverRideMap;
+
 
 //
 //MyObjectFactoryBase: 工厂基类, ITK 中几乎所有对象都是通过相应的对象工厂创建
@@ -34,21 +34,25 @@ class OverRideMap;
 namespace htk
 {
 
+
+class OverRideMap;
+
+
 class ObjectFactoryBase: public Object
 {
 
 public:
 	typedef ObjectFactoryBase	        Self;
-	typedef Object                      Superclass
+	typedef Object                      Superclass;
 	typedef SmartPointer<Self>          Pointer;		
 	typedef SmartPointer<const Self>    ConstPointer;
 
 	//virtual const char* GetNameOfClass() const;
 	htkTypeMacro(ObjectFactoryBase, Object);
 	//返回一个名为 classname 的类对象实例
-	//每个被加载的 MyObjectFactoryBase 都会按环境变量中的顺序被询问
+	//每个被加载的 ObjectFactoryBase 都会按环境变量中的顺序被询问
 	//一旦有一个工厂成功创建对象并返回, 其余工厂便不再被询问.
-	static MyObject::Pointer CreateInstance(const char* classname);
+	static Object::Pointer CreateInstance(const char* classname);
 
 	/////////////////////////////
 	//注册/注销 对象工厂
@@ -97,6 +101,9 @@ protected:
 
 	//对象工厂的子类实现 CreateObject 并返回创建的对象的指针，若不支持则返回 0
 	virtual Object::Pointer CreateObject(const char* classname );
+
+
+
 private:
 	ObjectFactoryBase(const Self&);
 	void operator=(const Self&);
@@ -112,4 +119,4 @@ private:
 
 } // end namespace htk
 
-#endif //__htkCreateObjectFunction_h
+#endif //__htkObjectFactoryBase_h

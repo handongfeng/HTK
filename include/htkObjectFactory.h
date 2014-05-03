@@ -30,4 +30,4 @@ public:
 
 } // end namespace htk
 
-#endif //__htkCreateObjectFunction_h
+#endif //__htkObjectFactory_h

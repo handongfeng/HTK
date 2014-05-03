@@ -16,7 +16,7 @@ class CreateObjectFunctionBase: public Object
 
 public:
 	typedef CreateObjectFunctionBase	Self;
-	typedef Object                      Superclass
+	typedef Object                      Superclass;
 	typedef SmartPointer<Self>          Pointer;		
 	typedef SmartPointer<const Self>    ConstPointer;
 
@@ -45,6 +45,7 @@ public:
 
 	//用于创建 Object 对象的方法.
 	htkFactorylessNewMacro(Self);
+	
 	Object::Pointer CreateObject() 
 	{ 
 		//std::cout << "CreateObjectFunction::CreateObject() ..." << std::endl;
