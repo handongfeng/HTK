@@ -46,8 +46,7 @@ class OverRideMap : public StringOverMapType
 
 /////////////////////////////////////////////////////
 //静态变量初始化, 已注册的对象工厂链表.
-std::list<ObjectFactoryBase*>* 
-ObjectFactoryBase::m_RegisteredFactories = 0;
+std::list<ObjectFactoryBase*>* ObjectFactoryBase::m_RegisteredFactories = 0;
 
 //构造函数
 ObjectFactoryBase::ObjectFactoryBase()
