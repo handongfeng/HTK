@@ -35,8 +35,7 @@ static CleanUpObjectFactory CleanUpObjectFactoryGlobal;
 
 ////////////////////////////////////////
 //StringOverMap, 使用 typedef 进行类型定义, 避免出现名字过长的警告.
-typedef std::multimap<std::string, 
-ObjectFactoryBase::OverrideInformation>  StringOverMapType;
+typedef std::multimap<std::string, ObjectFactoryBase::OverrideInformation>  StringOverMapType;
 
 //用于存储 <classID, facotoryInfo>
 //classID     对象工厂的标识
