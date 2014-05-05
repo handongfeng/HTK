@@ -49,7 +49,11 @@ public:
 	Object::Pointer CreateObject() 
 	{ 
 		//std::cout << "CreateObjectFunction::CreateObject() ..." << std::endl;
-		return T::New().GetPointer();
+		printf("CreateObject\n");
+		//return T::New().GetPointer();
+		Object::Pointer smartPtr  = new T;
+		printf("CreateObject 1\n");
+		return smartPtr;
 	}
 
 protected:

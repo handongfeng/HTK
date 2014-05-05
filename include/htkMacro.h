@@ -15,9 +15,11 @@
 #define htkNewMacro(x)                                       \
 	static Pointer New(void)                                 \
 	{                                                        \
+		printf("123\n");\
 		Pointer smartPtr = htk::ObjectFactory<x>::Create();  \
 		if(smartPtr.GetPointer() == NULL)                    \
-		{                                                    \
+		{            \
+printf("456\n");\
 			smartPtr = new x;                                \
 		}                                                    \
 		smartPtr->UnRegister();                              \
@@ -53,10 +55,10 @@
 
 //运行时类型识别.
 //virtual const char* GetNameOfClass() const;
-#define htkTypeMacro(thisClass,superclass) \
-	virtual const char *GetNameOfClass() const \
-	{\
-		return #thisClass;\
+#define htkTypeMacro(thisClass,superclass)                   \
+	virtual const char *GetNameOfClass() const               \
+	{                                                        \
+		return #thisClass;                                   \
 	}
 
 
