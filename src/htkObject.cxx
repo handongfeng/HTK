@@ -15,6 +15,7 @@ Object::Pointer Object::New()
 
   if ( rawPtr == NULL )
   {
+	//printf("  if ( rawPtr == NULL ) \n");
     rawPtr = new Object;
   }
   smartPtr = rawPtr;
