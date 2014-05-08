@@ -65,11 +65,11 @@ ObjectFactoryBase::~ObjectFactoryBase()
 Object::Pointer 
 ObjectFactoryBase::CreateInstance(const char* classname)
 {
+	printf("in ObjectFactoryBase::CreateInstance(const char* classname)\n");
 	if( !ObjectFactoryBase::m_RegisteredFactories )
 	{
 		ObjectFactoryBase::Initialize();
 	}
-
 	for( std::list<ObjectFactoryBase*>::iterator 
 		i = m_RegisteredFactories->begin();
 		i != m_RegisteredFactories->end(); ++i )
@@ -82,6 +82,7 @@ ObjectFactoryBase::CreateInstance(const char* classname)
 			return newobject;
 		}
 	}
+	printf("will return 0 in CreateInstance()\n");
 	return 0;
 }
 
@@ -208,23 +209,49 @@ void ObjectFactoryBase::RegisterOverride(
 }
 
 //
+int NN =0;
 Object::Pointer 
 ObjectFactoryBase::CreateObject(const char* classname)
 {
+	printf("in ObjectFactoryBase::CreateObject(const char* classname)\n",classname );
+	printf("classname in CreateObject %s\n",classname );
 	OverRideMap::iterator start = m_OverrideMap->lower_bound(classname);
 	OverRideMap::iterator end = m_OverrideMap->upper_bound(classname);
+	std::cout <<"start"<< (*start).first <<std::endl;
 
+	if(end==m_OverrideMap->end()) std::cout <<"readch the map end" <<std::endl;
+	else
+	std::cout <<"end"<< (*end).first <<std::endl;
 	int m = 0;
+	printf("m_OverrideMap size is %d \n",(*m_OverrideMap).size());
+
+	//for ( OverRideMap::iterator i = (*m_OverrideMap).begin(); i != (*m_OverrideMap).end(); ++i )
+	//{
+	//	std::cout <<"*************************************"<<std::endl;
+	//	std::cout <<(*i).first<<std::endl;
+	//	std::cout <<(*i).second.m_Description<<std::endl;
+	//	std::cout <<(*i).second.m_OverrideWithName<<std::endl;
+	//	//std::cout <<(*i).second.m_EnabledFlag<<std::endl;
+	//    //std::cout<<(*i).second<<std::endl;
+	//	std::cout<<"*************************************"<<std::endl;
+	//}
+
+	
 	for ( OverRideMap::iterator i = start; i != end; ++i )
 	{
+		
 		//(*i).second.m_EnabledFlag = true; 则使用该工厂创建该版本的对象实例
 		if ( i != m_OverrideMap->end() && (*i).second.m_EnabledFlag)
 		{
+			printf("NN will add 1\n");
+			NN++;
 			//调用了 CreateObjectFunction::CreateObject();
 			//CreateObjectFunction 是用于创建对象的回调函数
 			return (*i).second.m_CreateObject->CreateObject();
 		}
 	}
+	printf("NN is %d\n",NN);
+	printf("in ObjectFactoryBase::CreateObject will return 0\n");
 	return 0;
 }
 

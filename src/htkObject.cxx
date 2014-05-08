@@ -10,6 +10,7 @@ namespace htk
 
 Object::Pointer Object::New()
 {
+  printf("htk::Object New()\n");
   Pointer      smartPtr;
   Object *rawPtr = ::htk::ObjectFactory< Object >::Create();
 
