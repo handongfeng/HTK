@@ -19,9 +19,12 @@ class ObjectFactory : public ObjectFactoryBase
 public:
 	static typename T::Pointer Create()
 	{
+		printf("in  ObjectFactory Create()\n");
 		Object::Pointer ret = ObjectFactory::CreateInstance(typeid(T).name());
 		//ObjectType *GetPointer () const { return m_Pointer; }
 		//取得原始指针, 将其向下类型转换为 T*
+		if(ret){printf("ret\n");}
+		else {printf("!ret will return 0 in ObjectFactory::Create() \n");}
 		return dynamic_cast<T*>(ret.GetPointer());
 	}
 };

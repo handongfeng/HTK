@@ -15,11 +15,11 @@
 #define htkNewMacro(x)                                       \
 	static Pointer New(void)                                 \
 	{                                                        \
-		printf("123\n");\
+		printf("in htkNewMacro::New() 123\n");\
 		Pointer smartPtr = htk::ObjectFactory<x>::Create();  \
 		if(smartPtr.GetPointer() == NULL)                    \
 		{            \
-printf("456\n");\
+			printf("in htkNewMacro::New() 456\n");\
 			smartPtr = new x;                                \
 		}                                                    \
 		smartPtr->UnRegister();                              \
@@ -60,6 +60,42 @@ printf("456\n");\
 	{                                                        \
 		return #thisClass;                                   \
 	}
+
+
+
+
+
+/** Get built-in type.  Creates member Get"name"() (e.g., GetVisibility());
+ * This is the "const" form of the itkGetMacro.  It should be used unless
+ * the member can be changed through the "Get" access routine. */
+#define htkGetConstMacro(name, type)                                  \
+  virtual type Get##name () const                                   \
+    {                                                                 \
+    return this->m_##name;                                          \
+    }
+
+
+
+
+#include "htkExceptionObject.h"
+
+#define HTK_LOCATION __FUNCSIG__
+
+/** The exception macro is used to print error information (i.e., usually
+ * a condition that results in program failure). Example usage looks like:
+ * itkExceptionMacro(<< "this is error info" << this->SomeVariable); */
+#define htkExceptionMacro(x)                                                            \
+    {                                                                                   \
+    std::ostringstream message;                                                         \
+    message << "htk::ERROR: " << this->GetNameOfClass()                                 \
+            << "(" << this << "): " x;                                                  \
+    ::htk::ExceptionObject e_(__FILE__, __LINE__, message.str().c_str(), HTK_LOCATION); \
+    throw e_; /* Explicit naming to work around Intel compiler bug.  */                 \
+    }
+
+
+
+
 
 
 #endif //end of htkMacro.h

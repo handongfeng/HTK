@@ -8,7 +8,7 @@
 #include "htkObjectFactory.h"
 #include <string>
 #include <list>
-
+#include "htkMacro.h"
 //测试对象工厂:
 //1.对象工厂可以在运行时进行动态替换
 //2.我们从 MyObject 继承得到两个版本的类: TestObject1, TestObject2
@@ -38,7 +38,12 @@ public:
 	//virtual const char *GetNameOfClass() const;
 	htkTypeMacro(TestObject1, MyObject);
 
-	//
+	int testException()
+	{
+		htkExceptionMacro(<<"test htkExceptionMacro");
+		return 1;
+	}
+	
 	virtual ~TestObject1() {	}
 	TestObject1(){	}
 private:
@@ -103,6 +108,9 @@ private:
 	//注册其能创建的对象,及其版本信息与描述
 	TestFactory()
 	{
+		printf("typeid(Object).name() %s\n",typeid(Object).name());
+		printf("typeid(TestObject1).name() %s\n",typeid(TestObject1).name());
+
 		//TestFactory 可以创建两种对象: TestObject1, TestObject2;
 		this->RegisterOverride(
 			typeid(Object).name(),						//父类
@@ -269,20 +277,31 @@ bool TestNewObject(myPointer v, const char* expectedClassName)
 //测试对象工厂
 int MyHDFObjectFactoryTest(int argc, char* argv[])
 {
-	TestFactory::Pointer factory = TestFactory::New();
-	ObjectFactoryBase::RegisterFactory(factory);
+	//TestFactory::Pointer factory = TestFactory::New();
+	//ObjectFactoryBase::RegisterFactory(factory);
 
-	//列出所有已经注册的对象工厂
-	std::list<ObjectFactoryBase *> factories =
-		ObjectFactoryBase::GetRegisteredFactories();
+	//////列出所有已经注册的对象工厂
+	//std::list<ObjectFactoryBase *> factories =
+	//	ObjectFactoryBase::GetRegisteredFactories();
 
 
 	TestObject1::Pointer p = TestObject1::New();
+	//Object::Pointer p = Object::New();
+	htk::Object::Pointer p1 = dynamic_cast<htk::Object * >(p.GetPointer());
+	printf( p->GetNameOfClass() );
+	printf( p1->GetNameOfClass() );
+	
+	try{
+		p->testException();
+	}
+	catch(ExceptionObject &e)
+	{
+		std::cout<< e.what() <<std::endl;
+	}
 
 
-
-	////打印已经注册的对象工厂的信息
-	////依次打印对象工厂链表上的各个对象工厂的信息, 当然这里只注册了一个对象工厂
+	//////打印已经注册的对象工厂的信息
+	//////依次打印对象工厂链表上的各个对象工厂的信息, 当然这里只注册了一个对象工厂
 	//std::cout << "-------- Registered factories --------" << std::endl;
 	//for ( std::list<ObjectFactoryBase*>::iterator 
 	//	f = factories.begin(); f != factories.end(); ++f )
